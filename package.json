@@ -1,0 +1,54 @@
+{
+  "name": "",
+  "version": "0.0.2",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "author": "1ven",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "lib",
+    "src"
+  ],
+  "devDependencies": {
+    "cross-env": "^5.0.1",
+    "husky": "^0.13.4",
+    "jest": "^20.0.4",
+    "lint-staged": "^4.0.0",
+    "prettier": "^1.4.4",
+    "rimraf": "^2.6.1",
+    "ts-jest": "^20.0.6",
+    "ts-loader": "^2.1.0",
+    "typescript": "^2.3.4",
+    "webpack": "^3.0.0"
+  },
+  "scripts": {
+    "build": "npm run build:commonjs && npm run build:umd && npm run build:umd:min",
+    "build:commonjs": "tsc --project . --outDir ./lib",
+    "build:umd": "cross-env NODE_ENV=development webpack dist/lib.js",
+    "build:umd:min": "cross-env NODE_ENV=production webpack dist/lib.min.js",
+    "test": "jest",
+    "clean": "rimraf ./lib ./dist",
+    "precommit": "lint-staged",
+    "preversion": "npm run test && npm run clean && npm run build",
+    "postversion": "git push && git push --tags && npm publish",
+    "postpublish": "npm run clean"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ]
+  }
+}
