@@ -23,4 +23,5 @@ export default function mapSpec(
   );
 }
 
-const mergePath = (path: string, key: string) => path + key + "/";
+const mergePath = (path: string, key: string) =>
+  path === "" ? key : path + "/" + key;

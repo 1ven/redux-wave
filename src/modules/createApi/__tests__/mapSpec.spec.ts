@@ -76,7 +76,7 @@ test("should pass path value to callback", () => {
       }
     },
     (_, path) => {
-      expect(path).toBe("foo/bar/");
+      expect(path).toBe("foo/bar");
     }
   );
 });
