@@ -10,6 +10,10 @@ export type Meta = {
 
 /**
  * Creates api caller, which makes request for the entry
+ * 
+ * @param payload Request action payload data
+ * @param onSuccess Success callback
+ * @param onFailure Failure callback
  */
 export default (entry: SpecEntry) => <T>(
   payload: RequestPayload,
