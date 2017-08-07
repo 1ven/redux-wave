@@ -1,34 +1,45 @@
 import { RequestPayload } from "../createActions";
-import { SpecEntry } from "../../";
+import { SpecEntry } from "../";
+import { resolvePath } from "../../../../utils";
 import replaceParams from "./replaceParams";
-import resolveUrl from "./resolveUrl";
 
 export type Meta = {
   status: number;
   receivedAt: number;
 };
 
+export type Caller = (
+  onSuccess: (body: any, meta: Meta) => void,
+  onFailure: (msg: string, body?: any, meta?: Meta) => void,
+  payload?: RequestPayload
+) => void;
+
 /**
  * Creates api caller, which makes request for the entry
  * 
- * @param payload Request action payload data
  * @param onSuccess Success callback
  * @param onFailure Failure callback
+ * @param payload Request action payload data
  */
-export default (entry: SpecEntry) => <T>(
-  payload: RequestPayload,
-  onSuccess: (body: T, meta: Meta) => void,
-  onFailure: (msg: string, body?: any, meta?: Meta) => void
+export default (entry: SpecEntry): Caller => (
+  onSuccess,
+  onFailure,
+  payload?
 ) => {
   let xhr = new XMLHttpRequest();
 
-  const url = resolveUrl(
+  const url = resolvePath(
     entry.config.endpoint,
-    replaceParams(entry.url, payload.params)
+    replaceParams(entry.url, payload && payload.params)
   );
 
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4) {
+      if (xhr.status === 0) {
+        onFailure("Network failure");
+        return;
+      }
+
       const meta = {
         status: xhr.status,
         receivedAt: Date.now()
@@ -43,13 +54,9 @@ export default (entry: SpecEntry) => <T>(
     }
   };
 
-  xhr.onerror = function() {
-    onFailure("Network failure");
-  };
-
   xhr.open(entry.method.toUpperCase(), url);
   xhr.setRequestHeader("Accept", "application/json");
-  xhr.send(JSON.stringify(payload.body));
+  xhr.send(JSON.stringify(payload && payload.body));
 };
 
 const isSuccessResponse = (status: number) => status >= 200 && status < 300;

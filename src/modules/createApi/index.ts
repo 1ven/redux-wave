@@ -1,11 +1,13 @@
 import { isNil, is, compose, filter, split, path } from "ramda";
 import * as isPlainObject from "is-plain-object";
-import createApiEntry, { ApiEntry } from "./createApiEntry";
+import { resolvePath } from "../../utils";
+import createApiEntry, {
+  ApiEntry,
+  SpecEntry,
+  SpecEntryConfig,
+  isApiEntry
+} from "./createApiEntry";
 import mapSpec from "./mapSpec";
-
-export type SpecEntryConfig = {
-  endpoint: string;
-};
 
 export type SpecConfig = {
   context?: string;
@@ -18,29 +20,40 @@ export type Spec = {
 export type Api = {
   [key: string]: ApiEntry | Api;
 };
-
-export type SpecEntry = {
-  url: string;
-  method: string;
-  config?: SpecEntryConfig;
+export type FlatApi = {
+  [key: string]: ApiEntry;
 };
 
-export const isSpecEntry = (val: any): val is SpecEntry => {
-  return isPlainObject(val) && is(String, val.url) && is(String, val.method);
+export const isFlatApi = (val: any): val is FlatApi => {
+  if (!isPlainObject(val)) {
+    return false;
+  }
+
+  for (let key in val) {
+    if (!isApiEntry(val[key])) {
+      return false;
+    }
+  }
+
+  return true;
 };
 
 export default (
   spec: Spec,
   specEntryConfig: SpecEntryConfig,
-  specConfig: SpecConfig = {
-    context: "",
-    selector: <T>(state: T) => state
-  }
+  specConfig?: SpecConfig
 ) =>
   mapSpec(spec, (entry: SpecEntry, path: string) =>
     createApiEntry(
       mergeConfig(entry, specEntryConfig),
-      handleSpecConfig(specConfig, path)
+      handleSpecConfig(
+        {
+          context: "",
+          selector: <T>(state: T) => state,
+          ...specConfig
+        },
+        path
+      )
     )
   );
 
@@ -49,7 +62,7 @@ const pathToSelector = compose(path, filter(x => !!x), split("/"));
 const handleSpecConfig = (c: SpecConfig, path: string) => {
   return {
     ...c,
-    context: c.context + "/" + path,
+    context: resolvePath(c.context, path),
     selector: compose(pathToSelector(path), c.selector)
   };
 };

@@ -1,23 +1,25 @@
 import { Constants } from "../createConstants";
 
-export type State<T> = {
+export type State = {
   isFetching: boolean;
   lastUpdated?: number;
   error?: string;
-  data?: T;
+  data?: any;
 };
 
 const initialState = {
   isFetching: false
 };
 
+export type Reducer = (state: State, action) => State;
+
 /**
  * Creates reducer, which handles async actions for specific entry
  * 
  * @param constants Async constants
  */
-export default <T>({ request, success, failure }: Constants) => (
-  state: State<T> = initialState,
+export default ({ request, success, failure }: Constants): Reducer => (
+  state: State = initialState,
   action
 ) => {
   switch (action.type) {

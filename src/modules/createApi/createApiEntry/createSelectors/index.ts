@@ -1,5 +1,12 @@
 import { compose, prop } from "ramda";
 
+export type Selectors = {
+  isFetching: Function;
+  lastUpdated: Function;
+  data: Function;
+  error: Function;
+};
+
 /**
  * Creates selectors object for api entry
  * 

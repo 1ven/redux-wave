@@ -1,5 +1,7 @@
 import { mapObjIndexed } from "ramda";
-import { Spec, SpecEntry, isSpecEntry } from "./";
+import { resolvePath } from "../../utils";
+import { Spec } from "./";
+import { SpecEntry, isSpecEntry } from "./createApiEntry";
 
 /**
  * Recursively maps given spec object.
@@ -17,11 +19,8 @@ export default function mapSpec(
   return mapObjIndexed(
     (val: SpecEntry | Spec, key: string) =>
       isSpecEntry(val)
-        ? cb(val, mergePath(path, key))
-        : mapSpec(val, cb, mergePath(path, key)),
+        ? cb(val, resolvePath(path, key))
+        : mapSpec(val, cb, resolvePath(path, key)),
     spec
   );
 }
-
-const mergePath = (path: string, key: string) =>
-  path === "" ? key : path + "/" + key;

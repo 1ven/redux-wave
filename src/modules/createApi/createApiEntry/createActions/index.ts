@@ -31,18 +31,18 @@ export type FailurePayload = {
   body?: any;
 };
 
+export type Actions = {
+  request: (p?: RequestPayload) => RequestAction;
+  success: (p: SuccessPayload) => SuccessAction;
+  failure: (p: FailurePayload) => FailureAction;
+};
+
 /**
  * Creates 3 async action creators
  * 
  * @param constants async actions constants
  */
-export default (
-  constants: Constants
-): {
-  request: (p?: RequestPayload) => RequestAction;
-  success: (p: SuccessPayload) => SuccessAction;
-  failure: (p: FailurePayload) => FailureAction;
-} =>
+export default (constants: Constants): Actions =>
   map(
     (type: string) => payload => ({
       type,
