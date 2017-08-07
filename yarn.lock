@@ -421,6 +421,10 @@ boom@2.x.x:
   dependencies:
     hoek "2.x.x"
 
+bowser@^1.4.5:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/bowser/-/bowser-1.7.1.tgz#a4de8f18a1a0dc9531eb2a92a1521fb6a9ba96a5"
+
 brace-expansion@^1.1.7:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/brace-expansion/-/brace-expansion-1.1.8.tgz#c07b211c7c952ec1f8efd51a77ef0d1d3990a292"
@@ -1100,6 +1104,16 @@ fast-deep-equal@^0.1.0:
 fast-levenshtein@~2.0.4:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
+
+faux-jax@^5.0.6:
+  version "5.0.6"
+  resolved "https://registry.yarnpkg.com/faux-jax/-/faux-jax-5.0.6.tgz#29931f1784e7c3772268f6d442762c4b1d846dde"
+  dependencies:
+    bowser "^1.4.5"
+    lodash "^4.16.3"
+    lodash-compat "^3.10.2"
+    mitm "^1.3.2"
+    writable-window-method "1.0.3"
 
 fb-watchman@^1.8.0:
   version "1.9.2"
@@ -2080,11 +2094,19 @@ locate-path@^2.0.0:
     p-locate "^2.0.0"
     path-exists "^3.0.0"
 
+lodash-compat@3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/lodash-compat/-/lodash-compat-3.5.0.tgz#75f105fa4fe829896db0ca0662fdf3970c98f5f5"
+
+lodash-compat@^3.10.2:
+  version "3.10.2"
+  resolved "https://registry.yarnpkg.com/lodash-compat/-/lodash-compat-3.10.2.tgz#c6940128a9d30f8e902cd2cf99fd0cba4ecfc183"
+
 lodash.chunk@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/lodash.chunk/-/lodash.chunk-4.2.0.tgz#66e5ce1f76ed27b4303d8c6512e8d1216e8106bc"
 
-lodash@^4.14.0, lodash@^4.2.0:
+lodash@^4.14.0, lodash@^4.16.3, lodash@^4.2.0:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -2201,6 +2223,12 @@ minimist@0.0.8, minimist@~0.0.1:
 minimist@^1.1.1, minimist@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
+
+mitm@^1.3.2:
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/mitm/-/mitm-1.3.2.tgz#188d8620601a1569133d9e7085fcf011e799265d"
+  dependencies:
+    underscore ">= 1.1.6 < 1.6"
 
 "mkdirp@>=0.5 0", mkdirp@^0.5.1, mkdirp@~0.5.0:
   version "0.5.1"
@@ -3195,6 +3223,10 @@ uid-number@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/uid-number/-/uid-number-0.0.6.tgz#0ea10e8035e8eb5b8e4449f06da1c730663baa81"
 
+"underscore@>= 1.1.6 < 1.6":
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.5.2.tgz#1335c5e4f5e6d33bbb4b006ba8c86a00f556de08"
+
 universalify@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/universalify/-/universalify-0.1.0.tgz#9eb1c4651debcc670cc94f1a75762332bb967778"
@@ -3361,6 +3393,12 @@ wrap-ansi@^2.0.0:
 wrappy@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
+
+writable-window-method@1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/writable-window-method/-/writable-window-method-1.0.3.tgz#c8d390614cad0af44f48ec9b179d3f69f57c265e"
+  dependencies:
+    lodash-compat "3.5.0"
 
 xml-name-validator@^2.0.1:
   version "2.0.1"
