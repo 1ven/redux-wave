@@ -1,4 +1,4 @@
-import { Constants } from "./createConstants";
+import { Constants } from "../createConstants";
 
 export type State<T> = {
   isFetching: boolean;
@@ -30,9 +30,9 @@ export default <T>({ request, success, failure }: Constants) => (
       return {
         ...state,
         isFetching: false,
-        lastUpdated: action.payload.receivedAt,
+        lastUpdated: action.payload.meta.receivedAt,
         error: void 0,
-        data: action.payload.data
+        data: action.payload.body
       };
     case failure:
       return {

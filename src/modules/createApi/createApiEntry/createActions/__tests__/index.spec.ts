@@ -1,5 +1,5 @@
-import createActions from "../createActions";
-import createConstants from "../createConstants";
+import createConstants from "../../createConstants";
+import createActions from "../";
 
 test("should create request action creator", () => {
   const constants = createConstants("context");
@@ -25,8 +25,11 @@ test("should create success action creator", () => {
   const actions = createActions(constants);
 
   const payload = {
-    receivedAt: 1,
-    data: "data"
+    meta: {
+      receivedAt: 1,
+      status: 200
+    },
+    body: "data"
   };
 
   expect(actions.success(payload)).toEqual({
@@ -40,7 +43,12 @@ test("should create failure action creator", () => {
   const actions = createActions(constants);
 
   const payload = {
-    message: "test"
+    meta: {
+      receivedAt: 1,
+      status: 200
+    },
+    message: "test",
+    body: "error data"
   };
 
   expect(actions.failure(payload)).toEqual({

@@ -1,5 +1,6 @@
 import { map } from "ramda";
-import { Constants } from "./createConstants";
+import { Constants } from "../createConstants";
+import { Meta } from "../createApiCaller";
 
 export type RequestAction = {
   type: string;
@@ -15,9 +16,9 @@ export type SuccessAction = {
   payload: SuccessPayload;
 };
 export type SuccessPayload = {
-  receivedAt: number;
+  meta: Meta;
   request?: RequestPayload;
-  data?: any;
+  body?: any;
 };
 
 export type FailureAction = {
@@ -26,6 +27,8 @@ export type FailureAction = {
 };
 export type FailurePayload = {
   message: string;
+  meta?: Meta;
+  body?: any;
 };
 
 /**

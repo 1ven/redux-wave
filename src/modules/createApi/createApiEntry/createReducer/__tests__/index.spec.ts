@@ -1,6 +1,6 @@
-import createReducer from "../createReducer";
-import createConstants from "../createConstants";
-import createActions from "../createActions";
+import createConstants from "../../createConstants";
+import createActions from "../../createActions";
+import createReducer from "../";
 
 test("should create reducer with initial state", () => {
   const constants = createConstants("context");
@@ -30,8 +30,11 @@ test("should create reducer which handles success action", () => {
     reducer(
       { isFetching: true },
       actions.success({
-        receivedAt: 1,
-        data: "test"
+        meta: {
+          receivedAt: 1,
+          status: 200
+        },
+        body: "test"
       })
     )
   ).toEqual({
@@ -50,6 +53,10 @@ test("should create reducer which handles failure action", () => {
     reducer(
       { isFetching: true },
       actions.failure({
+        meta: {
+          receivedAt: 1,
+          status: 200
+        },
         message: "test"
       })
     )
