@@ -28,6 +28,7 @@ export type FailureAction = {
 export type FailurePayload = {
   message: string;
   meta?: Meta;
+  request?: RequestPayload;
   body?: any;
 };
 
