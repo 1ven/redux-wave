@@ -1,4 +1,4 @@
-import { ApiEntry } from "../createApi/createApiEntry";
+import { ApiEntry } from "../createApiEntry";
 
 /**
  * Throws an exception, related to keys duplication

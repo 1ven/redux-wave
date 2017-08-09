@@ -1,6 +1,6 @@
 import { is } from "ramda";
 import * as isPlainObject from "is-plain-object";
-import { SpecConfig } from "../";
+import { SpecConfig } from "../createApi";
 import createActions, { Actions } from "./createActions";
 import createApiCaller, { Caller } from "./createApiCaller";
 import createConstants, { Constants } from "./createConstants";

@@ -1,6 +1,6 @@
 import { useWith, keys, compose, head, intersection } from "ramda";
 import { Api, isFlatApi } from "../createApi";
-import { ApiEntry, isApiEntry } from "../createApi/createApiEntry";
+import { ApiEntry, isApiEntry } from "../createApiEntry";
 import flattenSingleApi from "./flattenSingleApi";
 import throwException from "./throwException";
 

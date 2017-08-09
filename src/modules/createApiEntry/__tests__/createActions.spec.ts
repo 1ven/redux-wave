@@ -1,5 +1,5 @@
-import createConstants from "../../createConstants";
-import createActions from "../";
+import createConstants from "../createConstants";
+import createActions from "../createActions";
 
 test("should create request action creator", () => {
   const constants = createConstants("context");

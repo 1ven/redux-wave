@@ -1,4 +1,4 @@
-import createSelectors from "../";
+import createSelectors from "../createSelectors";
 
 test("should create isFetching selector", () => {
   const { isFetching } = createSelectors(state => state.a.b);

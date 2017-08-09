@@ -1,6 +1,6 @@
-import createConstants from "../../createConstants";
-import createActions from "../../createActions";
-import createReducer from "../";
+import createConstants from "../createConstants";
+import createActions from "../createActions";
+import createReducer from "../createReducer";
 
 test("should create reducer with initial state", () => {
   const constants = createConstants("context");

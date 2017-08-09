@@ -1,7 +1,7 @@
 import { prop, map } from "ramda";
 import combineReducers from "./combineReducers";
 import { Api, isFlatApi } from "../createApi";
-import { isApiEntry } from "../createApi/createApiEntry";
+import { isApiEntry } from "../createApiEntry";
 
 /**
  * Creates reducer based on given api

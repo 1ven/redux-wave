@@ -1,4 +1,4 @@
-import { Constants } from "../createConstants";
+import { Constants } from "./createConstants";
 
 export type State = {
   isFetching: boolean;

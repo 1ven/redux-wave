@@ -1,4 +1,4 @@
-import createConstants from "../";
+import createConstants from "../createConstants";
 
 test("should create 3 api constants", () => {
   expect(createConstants("context")).toEqual({

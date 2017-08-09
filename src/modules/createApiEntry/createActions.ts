@@ -1,6 +1,6 @@
 import { map } from "ramda";
-import { Constants } from "../createConstants";
-import { Meta } from "../createApiCaller";
+import { Constants } from "./createConstants";
+import { Meta } from "./createApiCaller";
 
 export type RequestAction = {
   type: string;

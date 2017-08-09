@@ -1,10 +1,10 @@
 import { curry } from "ramda";
-import { ApiEntry } from "./modules/createApi/createApiEntry";
+import { ApiEntry } from "./modules/createApiEntry";
 import {
   RequestPayload,
   SuccessPayload,
   FailurePayload
-} from "./modules/createApi/createApiEntry/createActions";
+} from "./modules/createApiEntry/createActions";
 
 export const request = curry((entry: ApiEntry, payload: RequestPayload) =>
   entry.actions.request(payload)

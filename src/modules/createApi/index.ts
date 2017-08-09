@@ -6,7 +6,7 @@ import createApiEntry, {
   SpecEntry,
   SpecEntryConfig,
   isApiEntry
-} from "./createApiEntry";
+} from "../createApiEntry";
 import mapSpec from "./mapSpec";
 
 export type SpecConfig = {

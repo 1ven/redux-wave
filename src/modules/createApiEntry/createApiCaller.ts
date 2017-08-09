@@ -1,7 +1,6 @@
-import { RequestPayload } from "../createActions";
-import { SpecEntry } from "../";
-import { resolvePath } from "../../../../utils";
-import replaceParams from "./replaceParams";
+import { RequestPayload } from "./createActions";
+import { SpecEntry } from "./";
+import { resolvePath, replaceParams } from "../../utils";
 
 export type Meta = {
   status: number;

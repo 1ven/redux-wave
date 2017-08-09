@@ -1,7 +1,7 @@
 import { mapObjIndexed } from "ramda";
 import { resolvePath } from "../../utils";
 import { Spec } from "./";
-import { SpecEntry, isSpecEntry } from "./createApiEntry";
+import { SpecEntry, isSpecEntry } from "../createApiEntry";
 
 /**
  * Recursively maps given spec object.

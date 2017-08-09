@@ -1,5 +1,5 @@
 import { omit } from "ramda";
-import { ApiEntry, isApiEntry } from "../createApi/createApiEntry";
+import { ApiEntry, isApiEntry } from "../createApiEntry";
 import { Api, isFlatApi } from "../createApi";
 import throwException from "./throwException";
 
