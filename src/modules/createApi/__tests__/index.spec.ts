@@ -1,34 +1,7 @@
 import * as fauxJax from "faux-jax";
 import createApi from "../";
 
-test("should pass global entry config to spec entry object", done => {
-  // fauxJax.install();
-  const call = createApi(
-    {
-      x: {
-        y: {
-          url: "test",
-          method: "get"
-        }
-      }
-    },
-    {
-      endpoint: "endpoint"
-    }
-  ).x.y.call;
-
-  call(done, done);
-
-  // (fauxJax).on('request', req => {
-  //   expect(req.requestUrl).toMatch(/endpoint/)
-
-  //   fauxJax.restore();
-
-  //   done();
-  // })
-
-  // call(() => {}, () => {})
-});
+test("should pass global entry config to spec entry object");
 
 test("should replace global entry config by a specific one");
 
