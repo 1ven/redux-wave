@@ -6,17 +6,14 @@ import {
   FailurePayload
 } from "./modules/createApiEntry/createActions";
 
-export const request = curry((entry: ApiEntry, payload: RequestPayload) =>
-  entry.actions.request(payload)
-);
+export const request = (entry: ApiEntry, payload: RequestPayload) =>
+  entry.actions.request(payload);
 
-export const success = curry((entry: ApiEntry, payload: SuccessPayload) =>
-  entry.actions.success(payload)
-);
+export const success = (entry: ApiEntry, payload: SuccessPayload) =>
+  entry.actions.success(payload);
 
-export const failure = curry((entry: ApiEntry, payload: FailurePayload) =>
-  entry.actions.failure(payload)
-);
+export const failure = (entry: ApiEntry, payload: FailurePayload) =>
+  entry.actions.failure(payload);
 
 export const select = curry((entry: ApiEntry, prop: string, state) =>
   entry.selectors[prop](state)
