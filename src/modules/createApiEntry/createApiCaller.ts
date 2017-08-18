@@ -46,7 +46,7 @@ export default (entry: SpecEntry): Caller => (
         status: xhr.status,
         receivedAt: Date.now()
       };
-      const body = JSON.parse(xhr.responseText);
+      const body = parseBody(xhr);
 
       if (isSuccessResponse(meta.status)) {
         onSuccess(body, meta);
@@ -61,5 +61,8 @@ export default (entry: SpecEntry): Caller => (
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.send(JSON.stringify(requestBody));
 };
+
+const parseBody = xhr =>
+  xhr.responseText ? JSON.parse(xhr.responseText) : void 0;
 
 const isSuccessResponse = (status: number) => status >= 200 && status < 300;
