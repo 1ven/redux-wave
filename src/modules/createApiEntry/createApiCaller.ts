@@ -27,9 +27,12 @@ export default (entry: SpecEntry): Caller => (
 ) => {
   let xhr = new XMLHttpRequest();
 
+  const requestParams = payload && payload.params;
+  const requestBody = payload && payload.body;
+
   const url = resolvePath(
     entry.config.endpoint,
-    replaceParams(entry.url, payload && payload.params)
+    replaceParams(entry.url, requestParams)
   );
 
   xhr.onreadystatechange = function() {
@@ -55,7 +58,8 @@ export default (entry: SpecEntry): Caller => (
 
   xhr.open(entry.method.toUpperCase(), url);
   xhr.setRequestHeader("Accept", "application/json");
-  xhr.send(JSON.stringify(payload && payload.body));
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.send(JSON.stringify(requestBody));
 };
 
 const isSuccessResponse = (status: number) => status >= 200 && status < 300;
