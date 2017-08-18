@@ -45,7 +45,7 @@ export default (
 ) =>
   mapSpec(spec, (entry: SpecEntry, path: string) =>
     createApiEntry(
-      mergeConfig(entry, specEntryConfig),
+      addDefaults(entry, specEntryConfig),
       handleSpecConfig(
         {
           context: "",
@@ -67,9 +67,10 @@ const handleSpecConfig = (c: SpecConfig, path: string) => {
   };
 };
 
-const mergeConfig = (entry: SpecEntry, config: SpecEntryConfig) => {
+const addDefaults = (entry: SpecEntry, config: SpecEntryConfig) => {
   return {
     ...entry,
-    config: entry.config || config
+    config: entry.config || config,
+    reducer: entry.reducer || (state => state)
   };
 };

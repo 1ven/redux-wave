@@ -1,6 +1,7 @@
 import { is } from "ramda";
 import * as isPlainObject from "is-plain-object";
 import { SpecConfig } from "../createApi";
+import { mergeReducers } from "../../utils";
 import createActions, { Actions } from "./createActions";
 import createApiCaller, { Caller } from "./createApiCaller";
 import createConstants, { Constants } from "./createConstants";
@@ -10,6 +11,7 @@ import createSelectors, { Selectors } from "./createSelectors";
 export type SpecEntry = {
   url: string;
   method: string;
+  reducer?: Reducer;
   config?: SpecEntryConfig;
 };
 
@@ -50,7 +52,7 @@ export default (entry: SpecEntry, specConfig: SpecConfig): ApiEntry => {
   const constants = createConstants(specConfig.context);
   const selectors = createSelectors(specConfig.selector);
   const actions = createActions(constants);
-  const reducer = createReducer(constants);
+  const reducer = mergeReducers(createReducer(constants), entry.reducer);
   const call = createApiCaller(entry);
 
   return {
