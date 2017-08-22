@@ -14,14 +14,16 @@ export default function flattenSingleApi(api: Api) {
 
   return (function traverse(api: Api) {
     if (isFlatApi(api)) {
-      return mapKeys(api, (entry: ApiEntry, key: string) => {
+      return mapKeys(api, (entry: ApiEntry) => {
+        const key = entry.constants.request;
+
         if (!!temp[key]) {
           throwException(entry);
         }
 
         temp[key] = entry;
 
-        return entry.constants.request;
+        return key;
       });
     }
 
