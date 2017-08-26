@@ -1,7 +1,9 @@
 import { Constants } from "./createConstants";
+import { RequestPayload } from "./createActions";
 
 export type State = {
   isFetching: boolean;
+  request?: RequestPayload;
   lastUpdated?: number;
   error?: string;
   data?: any;
@@ -26,7 +28,8 @@ export default ({ request, success, failure }: Constants): Reducer => (
     case request:
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
+        request: action.payload
       };
     case success:
       return {
