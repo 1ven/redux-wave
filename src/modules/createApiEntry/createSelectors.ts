@@ -4,6 +4,7 @@ export type Selectors = {
   isFetching: Function;
   lastUpdated: Function;
   data: Function;
+  request: Function;
   error: Function;
 };
 
@@ -16,5 +17,6 @@ export default selector => ({
   isFetching: compose(prop("isFetching"), selector),
   lastUpdated: compose(prop("lastUpdated"), selector),
   data: compose(prop("data"), selector),
+  request: compose(prop("request"), selector),
   error: compose(prop("error"), selector)
 });
