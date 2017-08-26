@@ -1,4 +1,4 @@
-import { map } from "ramda";
+import { mapObjIndexed, pick } from "ramda";
 import { Constants } from "./createConstants";
 import { Meta } from "./createApiCaller";
 
@@ -38,16 +38,22 @@ export type Actions = {
   failure: (p: FailurePayload) => FailureAction;
 };
 
+const payloadSpec = {
+  request: pick(["params", "body"]),
+  success: pick(["meta", "request", "body"]),
+  failure: pick(["message", "meta", "request", "body"])
+};
+
 /**
  * Creates 3 async action creators
  * 
  * @param constants async actions constants
  */
-export default (constants: Constants): Actions =>
-  map(
-    (type: string) => payload => ({
+export default (constants: Constants) =>
+  mapObjIndexed(
+    (type: string, key: string) => payload => ({
       type,
-      payload
+      payload: payload && payloadSpec[key](payload)
     }),
     constants
-  );
+  ) as Actions;
