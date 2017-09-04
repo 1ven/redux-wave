@@ -1,7 +1,8 @@
+import { equals, partition, compose, prop } from "ramda";
 import { Constants } from "./createConstants";
 import { RequestPayload } from "./createActions";
 
-export type State = {
+export type EntryState = {
   isFetching: boolean;
   request?: RequestPayload;
   lastUpdated?: number;
@@ -9,19 +10,34 @@ export type State = {
   data?: any;
 };
 
-const initialState = {
-  isFetching: false
+// export type Reducer = (state: State, action) => State;
+
+const updateState = (cb, pred: (p: RequestPayload) => boolean, state) => {
+  const [[entry = { isFetching: false }], rest] = partition(
+    compose(pred, prop("request")),
+    state
+  );
+  return [...rest, cb(entry)];
 };
 
-export type Reducer = (state: State, action) => State;
+updateState(cb, equals(payload), state);
+
+// const list = ({ request, success, failure }) => (state: State[], action) => {
+//   switch (action.type) {
+//     case request:
+//     case success:
+//     case failure:
+//     default: return state;
+//   }
+// }
 
 /**
  * Creates reducer, which handles async actions for specific entry
  * 
  * @param constants Async constants
  */
-export default ({ request, success, failure }: Constants): Reducer => (
-  state: State = initialState,
+export default ({ request, success, failure }: Constants) => (
+  state: EntryState[] = [],
   action
 ) => {
   switch (action.type) {
