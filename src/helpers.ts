@@ -1,4 +1,4 @@
-import { curry } from "ramda";
+import { curry, T } from "ramda";
 import { ApiEntry } from "./modules/createApiEntry";
 import {
   RequestPayload,
@@ -15,9 +15,10 @@ export const success = (entry: ApiEntry, payload: SuccessPayload) =>
 export const failure = (entry: ApiEntry, payload: FailurePayload) =>
   entry.actions.failure(payload);
 
-export const select = curry((entry: ApiEntry, prop: string, state) =>
-  entry.selectors[prop](state)
-);
+export const select = (entry: ApiEntry, prop: string, cond?) => (
+  state,
+  props
+) => entry.selectors[prop](cond)(state, props);
 
 export const type = curry(
   (entry: ApiEntry, type: "request" | "success" | "failure") =>
