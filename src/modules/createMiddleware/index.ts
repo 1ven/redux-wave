@@ -17,13 +17,21 @@ export default (...apis: Api[]) => {
       return next(action);
     }
 
-    next(action);
+    next(entry.mapActions.request(action));
 
     entry.call(
       (body, meta) =>
-        next(entry.actions.success({ body, meta, request: payload })),
+        next(
+          entry.mapActions.success(
+            entry.actions.success({ body, meta, request: payload })
+          )
+        ),
       (message: string, body?, meta?) =>
-        next(entry.actions.failure({ body, meta, message, request: payload })),
+        next(
+          entry.mapActions.failure(
+            entry.actions.failure({ body, meta, message, request: payload })
+          )
+        ),
       payload
     );
   };

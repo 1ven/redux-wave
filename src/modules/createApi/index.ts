@@ -1,4 +1,4 @@
-import { isNil, is, compose, filter, split, path } from "ramda";
+import { identity, isNil, is, compose, filter, split, path } from "ramda";
 import * as isPlainObject from "is-plain-object";
 import { resolvePath } from "../../utils";
 import createApiEntry, {
@@ -71,6 +71,15 @@ const addDefaults = (entry: SpecEntry, config: SpecEntryConfig) => {
   return {
     ...entry,
     config: entry.config || config,
-    reducer: entry.reducer || (state => state)
+    reducer: entry.reducer || (state => state),
+    mapPayload: {
+      request: makePayloadMapper("request", entry),
+      success: makePayloadMapper("success", entry),
+      failure: makePayloadMapper("failure", entry)
+    }
   };
+};
+
+const makePayloadMapper = (type, entry): any => {
+  return path(["mapPayload", type], entry) || identity;
 };
