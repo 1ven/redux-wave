@@ -1,7 +1,8 @@
 import * as R from "ramda";
-import { initialTo, hasIntersection } from "../../utils";
-import { Constants } from "./createConstants";
-import { RequestPayload } from "./createActions";
+import { initialTo, hasIntersection } from "../../../utils";
+import { Constants } from "../createConstants";
+import { RequestPayload } from "../createActions";
+import { handlers } from "./";
 
 export type ItemState = {
   isFetching: boolean;
@@ -50,8 +51,7 @@ export default ({ request, success, failure }: Constants) => (
       return updateState(
         item => ({
           ...item,
-          isFetching: true,
-          request: action.payload
+          ...handlers.request(action.payload)
         }),
         equalsBy(groupBy(action.payload), action.payload),
         state
@@ -60,10 +60,7 @@ export default ({ request, success, failure }: Constants) => (
       return updateState(
         item => ({
           ...item,
-          isFetching: false,
-          lastUpdated: action.payload.meta.receivedAt,
-          error: void 0,
-          data: action.payload.body
+          ...handlers.success(action.payload)
         }),
         equalsBy(groupBy(action.payload.request), action.payload.request),
         state
@@ -72,8 +69,7 @@ export default ({ request, success, failure }: Constants) => (
       return updateState(
         item => ({
           ...item,
-          isFetching: false,
-          error: action.payload.message
+          ...handlers.failure(action.payload)
         }),
         equalsBy(groupBy(action.payload.request), action.payload.request),
         state

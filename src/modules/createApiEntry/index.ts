@@ -15,6 +15,7 @@ import createActionsMappers, {
 export type SpecEntry = {
   url: string;
   method: string;
+  history?: boolean;
   reducer?: Reducer;
   config?: SpecEntryConfig;
   mapPayload?: MapPayload;
@@ -58,7 +59,10 @@ export default (entry: SpecEntry, specConfig: SpecConfig): ApiEntry => {
   const constants = createConstants(specConfig.context);
   const selectors = createSelectors(specConfig.selector);
   const actions = createActions(constants);
-  const reducer = mergeReducers(createReducer(constants), entry.reducer);
+  const reducer = mergeReducers(
+    createReducer(constants, entry.history),
+    entry.reducer
+  );
   const call = createApiCaller(entry);
   const mapActions = createActionsMappers(entry.mapPayload);
 
