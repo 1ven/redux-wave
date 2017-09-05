@@ -1,4 +1,4 @@
-import { curry, equals, partition, compose, prop, whereEq } from "ramda";
+import * as R from "ramda";
 import { initialTo, hasIntersection } from "../../utils";
 import { Constants } from "./createConstants";
 import { RequestPayload } from "./createActions";
@@ -15,10 +15,26 @@ export type Reducer = (state: ItemState[], action) => ItemState[];
 
 export const updateState = (cb, cond, state) => {
   const predicate = typeof cond === "function" ? cond : hasIntersection(cond);
-  const [items, rest] = partition(compose(predicate, prop("request")), state);
+  const [items, rest] = R.partition(
+    R.compose(predicate, R.prop("request")),
+    state
+  );
 
   return [...rest, ...initialTo([{ isFetching: false }], items).map(cb)];
 };
+
+const equalsBy = R.curry((groupBy, actionRequest, stateRequest) => {
+  const arrayGroupBy = groupBy instanceof Array ? groupBy : [groupBy];
+  const splitted = arrayGroupBy.map(R.split("."));
+  return R.all(
+    item => R.eqBy(R.path(item), actionRequest, stateRequest),
+    splitted
+  );
+});
+
+const groupBy = (p: RequestPayload) =>
+  R.path(["settings", "groupBy"], p) ||
+  R.keys(R.pick(["params", "body"], p || {}));
 
 /**
  * Creates reducer, which handles async actions for specific item
@@ -37,7 +53,7 @@ export default ({ request, success, failure }: Constants) => (
           isFetching: true,
           request: action.payload
         }),
-        equals(action.payload),
+        equalsBy(groupBy(action.payload), action.payload),
         state
       );
     case success:
@@ -49,7 +65,7 @@ export default ({ request, success, failure }: Constants) => (
           error: void 0,
           data: action.payload.body
         }),
-        equals(action.payload.request),
+        equalsBy(groupBy(action.payload.request), action.payload.request),
         state
       );
     case failure:
@@ -59,7 +75,7 @@ export default ({ request, success, failure }: Constants) => (
           isFetching: false,
           error: action.payload.message
         }),
-        equals(action.payload.request),
+        equalsBy(groupBy(action.payload.request), action.payload.request),
         state
       );
     default:
