@@ -9,8 +9,9 @@ export type RequestAction = {
 export type RequestPayload = {
   params?: Record<string, string | number>;
   body?: any;
-  settings?: {
+  history?: {
     groupBy?: string | string[];
+    id?: string | number;
   };
 };
 
@@ -42,7 +43,7 @@ export type Actions = {
 };
 
 const payloadSpec = {
-  request: pick(["params", "body", "settings", "id"]),
+  request: pick(["params", "body", "history"]),
   success: pick(["meta", "request", "body"]),
   failure: pick(["message", "meta", "request", "body"])
 };

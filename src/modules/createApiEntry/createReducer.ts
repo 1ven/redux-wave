@@ -33,7 +33,7 @@ const equalsBy = R.curry((groupBy, actionRequest, stateRequest) => {
 });
 
 const groupBy = (p: RequestPayload) =>
-  R.path(["settings", "groupBy"], p) ||
+  R.path(["history", "groupBy"], p) ||
   R.keys(R.pick(["params", "body"], p || {}));
 
 /**
