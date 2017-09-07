@@ -10,14 +10,16 @@ export default (...apis: Api[]) => {
   const flattened = flattenApis(apis);
 
   return store => next => action => {
-    const { type, payload } = action;
-    const entry = flattened[type];
+    const entry = flattened[action.type];
 
     if (typeof entry === "undefined") {
       return next(action);
     }
 
-    next(entry.mapActions.request(action));
+    const mappedRequestAction = entry.mapActions.request(action);
+    const { payload } = mappedRequestAction;
+
+    next(mappedRequestAction);
 
     entry.call(
       (body, meta) =>
