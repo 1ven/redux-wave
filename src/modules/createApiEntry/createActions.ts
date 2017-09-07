@@ -43,7 +43,7 @@ export type Actions = {
 };
 
 const payloadSpec = {
-  request: pick(["params", "body", "history"]),
+  request: pick(["params", "body", "history", "meta"]),
   success: pick(["meta", "request", "body"]),
   failure: pick(["message", "meta", "request", "body"])
 };
