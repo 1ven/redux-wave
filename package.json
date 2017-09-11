@@ -56,6 +56,7 @@
   },
   "dependencies": {
     "is-plain-object": "^2.0.4",
+    "lodash.ismatch": "^4.4.0",
     "ramda": "^0.24.1"
   }
 }
