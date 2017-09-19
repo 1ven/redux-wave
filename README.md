@@ -1,5 +1,5 @@
 # Redux API layer
-LOGO
+<img width="100" src="https://raw.githubusercontent.com/1ven/redux-api/master/logo.svg?sanitize=true" />
 
 Handling lots of API calls in your Redux application is tough and requires writing a lot of boilerplate code. To reduce the boilerplate, we provide clean and declarative way to define api layer in your application.
 
