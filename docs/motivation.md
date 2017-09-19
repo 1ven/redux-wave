@@ -5,7 +5,7 @@ API calls handling in redux applications, easily can become a nightmare, when yo
 For every api call, we need to create `request`, `success` and `failure` constants with corresponding actions. All of them needs to be handled in corresponding api reducer. Finally for every api call, we need to listen for `request` action, initiate api fetching and dispatch either `success` or `failure` actions back somewhere like `sagas` or `epics`.
 
 Let's look at the code:
-```
+```javascript
 import { call, put, select, cancel, takeLatest } from 'redux-saga/effects';
 
 const FETCH_REPOS_REQUEST = 'FETCH_REPOS_REQUEST';
@@ -79,7 +79,7 @@ const reposSaga = function*() {
 All these steps above needs to be repeated everytime you defining new api call in your application. This is not scalable approach as it leads to a huge code duplication, when your app is doing a lot of api calls.
 ## Solution
 Instead of doing a lot of repetitive actions, the library provides declarative way to define your api calls:
-```
+```javascript
 const api = createApi({
   fetchRepos: {
     url: '/repos/:repo/:owner',

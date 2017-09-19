@@ -1,7 +1,7 @@
 # Getting started
 First thing, you need to do, is to define the spec of your API calls.
 <br/>You could use any level of nesting in the spec object.
-```
+```javascript
 import { createApi } from 'redux-api-layer';
 
 const api = createApi({
@@ -20,7 +20,7 @@ const api = createApi({
 export default api;
 ```
 After, api instance is ready, we need to create reducer and middleware using it.
-```
+```javascript
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { createApiMiddleware, createApiReducer } from 'redux-api-layer';
 import api from './api';
@@ -38,7 +38,7 @@ export default store;
 ```
 Next step is to dispatch request actions, to initiate data fetching for the specific api.
 <br/>After data will be fetched, we can use `select` helper, to get neccessary data from the state.
-```
+```javascript
 import { actions, select } from 'redux-api-layer';
 import store from './store';
 import api from './api';
