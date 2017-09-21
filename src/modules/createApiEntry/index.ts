@@ -1,4 +1,4 @@
-import { is } from "ramda";
+import { is, curryN } from "ramda";
 import * as isPlainObject from "is-plain-object";
 import { SpecConfig } from "../createApi";
 import { mergeReducers } from "../../utils";
@@ -14,9 +14,8 @@ import createActionsMappers, {
 export type SpecEntry = {
   url: string;
   method: string;
-  history?: boolean;
-  reducer?: Reducer;
   config?: SpecEntryConfig;
+  reducer?: Reducer;
   mapPayload?: MapPayload;
 };
 
@@ -57,10 +56,7 @@ export const isApiEntry = (val: any): val is ApiEntry => {
 export default (entry: SpecEntry, specConfig: SpecConfig): ApiEntry => {
   const constants = createConstants(specConfig.context);
   const actions = createActions(constants);
-  const reducer = mergeReducers(
-    createReducer(constants, entry.history),
-    entry.reducer
-  );
+  const reducer = mergeReducers(createReducer(constants), entry.reducer);
   const call = createApiCaller(entry);
   const mapActions = createActionsMappers(entry.mapPayload);
 

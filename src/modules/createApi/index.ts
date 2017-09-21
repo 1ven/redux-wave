@@ -72,7 +72,6 @@ const addDefaults = (entry: SpecEntry, config: SpecEntryConfig) => {
     ...entry,
     config: entry.config || config,
     reducer: entry.reducer || (state => state),
-    history: entry.history || false,
     mapPayload: {
       request: makePayloadMapper("request", entry),
       success: makePayloadMapper("success", entry),
