@@ -1,6 +1,5 @@
 import { RequestPayload } from "./createActions";
-import { SpecEntry } from "./";
-import { resolvePath, replaceParams } from "../../utils";
+import { replaceParams } from "../../utils";
 
 export type Meta = {
   status: number;
@@ -20,7 +19,7 @@ export type Caller = (
  * @param onFailure Failure callback
  * @param payload Request action payload data
  */
-export default (entry: SpecEntry): Caller => (
+export default (url: string, method: string): Caller => (
   onSuccess,
   onFailure,
   payload?
@@ -29,11 +28,6 @@ export default (entry: SpecEntry): Caller => (
 
   const requestParams = payload && payload.params;
   const requestBody = payload && payload.body;
-
-  const url = resolvePath(
-    entry.config.endpoint,
-    replaceParams(entry.url, requestParams)
-  );
 
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4) {
@@ -56,7 +50,7 @@ export default (entry: SpecEntry): Caller => (
     }
   };
 
-  xhr.open(entry.method.toUpperCase(), url);
+  xhr.open(method.toUpperCase(), replaceParams(url, requestParams));
   xhr.setRequestHeader("Accept", "application/json");
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.send(JSON.stringify(requestBody));

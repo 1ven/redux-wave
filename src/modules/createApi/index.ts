@@ -1,85 +1,27 @@
-import { identity, isNil, is, compose, filter, split, path } from "ramda";
 import * as isPlainObject from "is-plain-object";
 import { resolvePath } from "../../utils";
-import createApiEntry, {
-  ApiEntry,
-  SpecEntry,
-  SpecEntryConfig,
-  isApiEntry
-} from "../createApiEntry";
-import mapSpec from "./mapSpec";
-
-export type SpecConfig = {
-  context?: string;
-  selector?: <S, T>(state: S) => S | T;
-};
-
-export type Spec = {
-  [key: string]: SpecEntry | Spec;
-};
-export type Api = {
-  [key: string]: ApiEntry | Api;
-};
-export type FlatApi = {
-  [key: string]: ApiEntry;
-};
-
-export const isFlatApi = (val: any): val is FlatApi => {
-  if (!isPlainObject(val)) {
-    return false;
-  }
-
-  for (let key in val) {
-    if (!isApiEntry(val[key])) {
-      return false;
-    }
-  }
-
-  return true;
-};
+import * as types from "./types";
+import * as utils from "./utils";
+import createApiCaller, { Caller } from "./createApiCaller";
+import createConstants, { Constants } from "./createConstants";
+import createReducer, { Reducer } from "./createReducer";
+import createActions, { Actions } from "./createActions";
 
 export default (
-  spec: Spec,
-  specEntryConfig: SpecEntryConfig,
-  specConfig?: SpecConfig
+  spec: types.Spec,
+  queryConfig: types.QueryConfig,
+  settings?: types.Settings
 ) =>
-  mapSpec(spec, (entry: SpecEntry, path: string) =>
-    createApiEntry(
-      addDefaults(entry, specEntryConfig),
-      handleSpecConfig(
-        {
-          context: "",
-          selector: <T>(state: T) => state,
-          ...specConfig
-        },
-        path
-      )
-    )
-  );
+  utils.mapSpec(spec, (entry: types.SpecEntry, path: string) => {
+    const { url, config, method } = utils.entryDefaults(entry, queryConfig);
+    const { selector, context } = utils.settingsDefaults(settings, path);
+    const constants = createConstants(context);
 
-const pathToSelector = compose(path, filter(x => !!x), split("/"));
-
-const handleSpecConfig = (c: SpecConfig, path: string) => {
-  return {
-    ...c,
-    context: resolvePath(c.context, path),
-    selector: compose(pathToSelector(path), c.selector)
-  };
-};
-
-const addDefaults = (entry: SpecEntry, config: SpecEntryConfig) => {
-  return {
-    ...entry,
-    config: entry.config || config,
-    reducer: entry.reducer || (state => state),
-    mapPayload: {
-      request: makePayloadMapper("request", entry),
-      success: makePayloadMapper("success", entry),
-      failure: makePayloadMapper("failure", entry)
-    }
-  };
-};
-
-const makePayloadMapper = (type, entry): any => {
-  return path(["mapPayload", type], entry) || identity;
-};
+    return {
+      select: utils.createSelect(selector),
+      type: utils.createType(constants),
+      fetch: createApiCaller(resolvePath(config.endpoint, url), method),
+      reducer: createReducer(constants),
+      actions: createActions(constants)
+    };
+  });

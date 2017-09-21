@@ -1,6 +1,5 @@
 import { omit } from "ramda";
-import { ApiEntry, isApiEntry } from "../createApiEntry";
-import { Api, isFlatApi } from "../createApi";
+import * as types from "../createApi/types";
 import throwException from "./throwException";
 
 /**
@@ -9,13 +8,13 @@ import throwException from "./throwException";
  * 
  * @param api Api instance
  */
-export default function flattenSingleApi(api: Api) {
+export default function flattenSingleApi(api: types.Api) {
   let temp = {};
 
-  return (function traverse(api: Api) {
-    if (isFlatApi(api)) {
-      return mapKeys(api, (entry: ApiEntry) => {
-        const key = entry.constants.request;
+  return (function traverse(api: types.Api) {
+    if (types.isFlatApi(api)) {
+      return mapKeys(api, (entry: types.ApiEntry) => {
+        const key = entry.type("request");
 
         if (!!temp[key]) {
           throwException(entry);

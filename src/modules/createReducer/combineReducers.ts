@@ -1,6 +1,4 @@
 import { mapObjIndexed } from "ramda";
-import { FlatApi } from "../createApi";
-import { ApiEntry } from "../createApiEntry";
 
 /**
  * Combines reducers object into one single reducer

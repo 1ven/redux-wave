@@ -1,4 +1,4 @@
-import { ApiEntry } from "../createApiEntry";
+import { ApiEntry } from "../createApi/types";
 
 /**
  * Throws an exception, related to keys duplication
@@ -7,9 +7,8 @@ import { ApiEntry } from "../createApiEntry";
  */
 export default (entry: ApiEntry) => {
   throw new Error(
-    `Apis are having entries with the same path - ${entry.constants.request.replace(
-      /\/request/,
-      ""
-    )}`
+    `Apis are having entries with the same path - ${entry
+      .type("request")
+      .replace(/\/request/, "")}`
   );
 };

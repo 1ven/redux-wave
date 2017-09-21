@@ -1,7 +1,6 @@
 import { useWith, keys, compose, head, intersection } from "ramda";
-import { Api, isFlatApi } from "../createApi";
-import { ApiEntry, isApiEntry } from "../createApiEntry";
-import flattenSingleApi from "./flattenSingleApi";
+import * as types from "../createApi/types";
+import flattenEntry from "./flattenEntry";
 import throwException from "./throwException";
 
 /**
@@ -10,12 +9,12 @@ import throwException from "./throwException";
  * 
  * @param api Apis instances list
  */
-export default (apis: Api[]) => {
+export default (apis: types.Api[]) => {
   let temp = {};
 
-  return (function traverse(apis: Api[]) {
+  return (function traverse(apis: types.Api[]) {
     if (apis.length === 1) {
-      const flatApi = flattenSingleApi(apis[0]);
+      const flatApi = flattenEntry(apis[0]);
       const key = getDuplicateKey(temp, flatApi);
 
       if (key) {

@@ -39,11 +39,10 @@ export default store;
 Next step is to dispatch request actions, to initiate data fetching for the specific api.
 <br/>After data will be fetched, we can use `select` helper, to get neccessary data from the state.
 ```javascript
-import { actions, select } from 'redux-api-layer';
 import store from './store';
 import api from './api';
 
-store.dispatch(actions.request(api.read, {
+store.dispatch(api.read.actions.request({
   params: {
     owner: '1ven',
     repo: 'redux-api-layer'
@@ -52,11 +51,10 @@ store.dispatch(actions.request(api.read, {
 
 store.subscribe(() => {
   const state = store.getState();
-  const dataSelector = select(api.read, 'data');
-  const isFetchingSelector = select(api.read, 'isFetching');
 
-  console.log('repo data', dataSelector(state));
-  console.log('is data fetching?', isFetchingSelector(state));
+  // select function is curried, you can provide "data" and "state" args at once.
+  console.log('repo data', api.read.select('data')(state));
+  console.log('is data fetching?', api.read.select('isFetching')(state));
 });
 ```
 

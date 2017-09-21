@@ -1,19 +1,18 @@
 import { prop, map } from "ramda";
 import combineReducers from "./combineReducers";
-import { Api, isFlatApi } from "../createApi";
-import { isApiEntry } from "../createApiEntry";
+import * as types from "../createApi/types";
 
 /**
  * Creates reducer based on given api
  *
  * @param api Api object instance
  */
-export default function createReducer(api: Api) {
-  if (isApiEntry(api)) {
+export default function createReducer(api: types.Api) {
+  if (types.isApiEntry(api)) {
     return api.reducer;
   }
 
-  if (isFlatApi(api)) {
+  if (types.isFlatApi(api)) {
     return combineReducers(map(prop("reducer"), api));
   }
 

@@ -1,5 +1,5 @@
-import { Api } from "../createApi";
-import flattenApis from "./flattenApis";
+import { Api } from "../createApi/types";
+import flattenApis from "./flattenApi";
 
 /**
  * Middleware, which listens request actions and makes api requests
@@ -11,29 +11,19 @@ export default (...apis: Api[]) => {
 
   return store => next => action => {
     const entry = flattened[action.type];
+    const { payload } = action;
 
     if (typeof entry === "undefined") {
       return next(action);
     }
 
-    const mappedRequestAction = entry.mapActions.request(action);
-    const { payload } = mappedRequestAction;
+    next(action);
 
-    next(mappedRequestAction);
-
-    entry.call(
+    entry.fetch(
       (body, meta) =>
-        next(
-          entry.mapActions.success(
-            entry.actions.success({ body, meta, request: payload })
-          )
-        ),
+        next(entry.actions.success({ body, meta, request: payload })),
       (message: string, body?, meta?) =>
-        next(
-          entry.mapActions.failure(
-            entry.actions.failure({ body, meta, message, request: payload })
-          )
-        ),
+        next(entry.actions.failure({ body, meta, message, request: payload })),
       payload
     );
   };
