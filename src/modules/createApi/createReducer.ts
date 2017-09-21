@@ -1,9 +1,9 @@
 import { Constants } from "./createConstants";
-import { RequestPayload } from "./createActions";
+import { RequestAction } from "./createActions";
 
 export type State = {
   isFetching: boolean;
-  request?: RequestPayload;
+  request?: RequestAction["payload"];
   lastUpdated?: number;
   error?: string;
   data?: any;

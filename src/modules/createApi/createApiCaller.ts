@@ -1,4 +1,4 @@
-import { RequestPayload } from "./createActions";
+import { RequestAction } from "./createActions";
 import { replaceParams } from "../../utils";
 
 export type Meta = {
@@ -9,7 +9,7 @@ export type Meta = {
 export type Caller = (
   onSuccess: (body: any, meta: Meta) => void,
   onFailure: (msg: string, body?: any, meta?: Meta) => void,
-  payload?: RequestPayload
+  payload?: RequestAction["payload"]
 ) => void;
 
 /**

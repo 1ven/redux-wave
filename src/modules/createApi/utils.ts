@@ -31,7 +31,10 @@ export const settingsDefaults = (s: types.Settings = {}, path: string) => {
   return {
     ...s,
     context: resolvePath(s.context || "", path),
-    selector: compose(pathToSelector(path), s.selector || (state => state))
+    selector: compose(
+      pathToSelector(path),
+      s.selector || ((state: any) => state.api)
+    )
   };
 };
 

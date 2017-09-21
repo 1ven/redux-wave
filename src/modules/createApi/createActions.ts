@@ -4,38 +4,35 @@ import { Meta } from "./createApiCaller";
 
 export type RequestAction = {
   type: string;
-  payload?: RequestPayload;
-};
-export type RequestPayload = {
-  params?: Record<string, string | number>;
-  body?: any;
+  payload?: {
+    params?: Record<string, string | number>;
+    body?: any;
+  };
 };
 
 export type SuccessAction = {
   type: string;
-  payload: SuccessPayload;
-};
-export type SuccessPayload = {
-  meta: Meta;
-  request?: RequestPayload;
-  body?: any;
+  payload: {
+    meta: Meta;
+    request?: RequestAction["payload"];
+    body?: any;
+  };
 };
 
 export type FailureAction = {
   type: string;
-  payload: FailurePayload;
-};
-export type FailurePayload = {
-  message: string;
-  meta?: Meta;
-  request?: RequestPayload;
-  body?: any;
+  payload: {
+    message: string;
+    meta?: Meta;
+    request?: RequestAction["payload"];
+    body?: any;
+  };
 };
 
 export type Actions = {
-  request: (p?: RequestPayload) => RequestAction;
-  success: (p: SuccessPayload) => SuccessAction;
-  failure: (p: FailurePayload) => FailureAction;
+  request: (p?: RequestAction["payload"]) => RequestAction;
+  success: (p: SuccessAction["payload"]) => SuccessAction;
+  failure: (p: FailureAction["payload"]) => FailureAction;
 };
 
 const payloadSpec = {
