@@ -8,5 +8,4 @@ Everytime, when you are dispatching request actions, middleware is listening to 
 Next, when you need derived data in your components, you use select helper to get that data from state.
 
 In some specific cases you will need to store data of the same api call, but with different request data or extend the library using enhancers.
-
-See [Advanced usage]() for details.
+<br/>See [Advanced usage]() for details.

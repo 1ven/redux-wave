@@ -52,7 +52,6 @@ store.dispatch(api.read.actions.request({
 store.subscribe(() => {
   const state = store.getState();
 
-  // select function is curried, you can provide "data" and "state" args at once.
   console.log('repo data', api.read.select('data')(state));
   console.log('is data fetching?', api.read.select('isFetching')(state));
 });
