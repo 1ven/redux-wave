@@ -1,6 +1,6 @@
 import { mapObjIndexed, pick } from "ramda";
 import { Constants } from "./createConstants";
-import { Meta } from "./createApiCaller";
+import { ResponseMeta } from "./createApiCaller";
 
 export type RequestAction = {
   type: string;
@@ -13,7 +13,7 @@ export type RequestAction = {
 export type SuccessAction = {
   type: string;
   payload: {
-    meta: Meta;
+    meta: ResponseMeta;
     request?: RequestAction["payload"];
     body?: any;
   };
@@ -23,7 +23,7 @@ export type FailureAction = {
   type: string;
   payload: {
     message: string;
-    meta?: Meta;
+    meta?: ResponseMeta;
     request?: RequestAction["payload"];
     body?: any;
   };
