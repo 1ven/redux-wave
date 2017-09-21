@@ -35,7 +35,7 @@ export const isFlatApi = (val: any): val is FlatApi => {
 };
 
 export type SpecEntry = {
-  url: string;
+  path: string;
   method: string;
   config?: QueryConfig;
 };
@@ -53,7 +53,7 @@ export type ApiEntry = {
 };
 
 export const isSpecEntry = (val: any): val is SpecEntry => {
-  return isPlainObject(val) && is(String, val.url) && is(String, val.method);
+  return isPlainObject(val) && is(String, val.path) && is(String, val.method);
 };
 
 export const isApiEntry = (val: any): val is ApiEntry => {

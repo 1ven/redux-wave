@@ -8,7 +8,7 @@ describe("mapSpec", () => {
           a: {
             b: {
               c: {
-                url: "a",
+                path: "a",
                 method: "b"
               }
             }
@@ -31,13 +31,13 @@ describe("mapSpec", () => {
       {
         a: {
           b: {
-            url: "a",
+            path: "a",
             method: "b"
           }
         },
         x: {
           y: {
-            url: "a",
+            path: "a",
             method: "b"
           }
         }
@@ -52,14 +52,14 @@ describe("mapSpec", () => {
       {
         a: {
           b: {
-            url: "a",
+            path: "a",
             method: "b"
           }
         }
       },
       entry => {
         expect(entry).toEqual({
-          url: "a",
+          path: "a",
           method: "b"
         });
       }
@@ -71,7 +71,7 @@ describe("mapSpec", () => {
       {
         foo: {
           bar: {
-            url: "a",
+            path: "a",
             method: "b"
           }
         }
