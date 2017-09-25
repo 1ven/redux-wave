@@ -20,7 +20,7 @@ ___
 ### `createReducer(api)`
 Creates reducer for given api instance. Should be mounted at `state.api` path unless `selector` option is specified at [Settings](#settings).
 #### Arguments:
-- `api`: [Api](#api) - Api instance object.
+- `api`: [Api](#api-1) - Api instance object.
 
 **Returns:** Redux reducer.
 ## Types
@@ -52,10 +52,10 @@ ___
 Api entry object. Contains all needed data for making and handling api request.
 #### Fields:
 - `select`: [ApiEntry.select](#apientryselectkey) - Returns redux selector according given `key`.
-- `type`: [ApiEntry.type](#apientrytype) - Returns action type according given `key`.
-- `actions`: [ApiEntry.actions](#apientryactions) - Object of redux action creators.
-- `reducer`: [ApiEntry.reducer](#apientryreducer) - Api entry reducer. Used internally in the library and in the enhancer API.
-- `fetch`: [ApiEntry.fetch](#apientryfetch) - Function, used to making api requests. Used internally in the library and in the enhancer API.
+- `type`: [ApiEntry.type](#apientrytypekey) - Returns action type according given `key`.
+- `actions`: [Actions](#actions) - Object of redux action creators.
+- `reducer`: [ApiEntry.reducer](#apientryreducerstate-action) - Api entry reducer. Used internally in the library and in the enhancer API.
+- `fetch`: [ApiEntry.fetch](#apientryfetchonsuccess-onfailure-payload) - Function, used to making api requests. Used internally in the library and in the enhancer API.
 ### `ApiEntry.select(key)`
 #### Arguments:
 - `key`: 'data' | 'isFetching' | 'lastUpdated' | 'error' - Api entry state key.
@@ -70,14 +70,14 @@ Api entry object. Contains all needed data for making and handling api request.
 #### Arguments:
 - `onSuccess`: function - Callback, which will be called when request succeeded.
 - `onFailure`: function - Callback, which will be called when request failed.
-- `payload?`: [RequestAction.payload](requestactionpayload) - Request action payload object.
+- `payload?`: [RequestAction.payload](#requestactionpayload) - Request action payload object.
 ___
 ### `Actions`
 Async actions creators object.
 #### Fields:
-- `request`: [Actions.request](#actionsrequest) - Request action creator function.
-- `success`: [Actions.success](#actionssuccess) - Success action creator function.
-- `request`: [Actions.failure](#actionsfailure) - Failure action creator function.
+- `request`: [Actions.request](#actionsrequestpayload) - Request action creator function.
+- `success`: [Actions.success](#actionssuccesspayload) - Success action creator function.
+- `request`: [Actions.failure](#actionsfailurepayload) - Failure action creator function.
 ### `Actions.request(payload?)`
 #### Arguments:
 - `payload?`: [RequestAction.payload](#requestactionpayload) - Request action payload data.
@@ -95,7 +95,7 @@ Request action object.
 - `payload?`: [RequestAction.payload](#requestactionpayload) - Request action payload data.
 ### `RequestAction.payload`
 #### Fields:
-- `params?`: Object - Params of api request, should correspond to params, defined in [SpecEntry]() `path`.
+- `params?`: Object - Params of api request, should correspond to params, defined in [SpecEntry](specentry) `path`.
 - `body?`: any - Request body data.
 ___
 ### `SuccessAction`
