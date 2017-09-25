@@ -95,7 +95,7 @@ Request action object.
 - `payload?`: [RequestAction.payload](#requestactionpayload) - Request action payload data.
 ### `RequestAction.payload`
 #### Fields:
-- `params?`: Object - Params of api request, should correspond to params, defined in [SpecEntry](specentry) `path`.
+- `params?`: Object - Params of api request, should correspond to params, defined in [SpecEntry](#specentry) `path`.
 - `body?`: any - Request body data.
 ___
 ### `SuccessAction`
