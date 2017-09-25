@@ -9,8 +9,9 @@ Creates `api` instance object, with the same structure as given `spec`.
 
 **Returns:** [Api]()
 ___
-### `createMiddleware(api)`
+### `createMiddleware(api, anotherApi?, ...)`
 Creates middleware for listening request actions and fetching data from server.
+Accepts multiple api instances.
 #### Arguments:
 - `api`: [Api]() - Api instance object.
 

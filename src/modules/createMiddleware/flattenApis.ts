@@ -1,6 +1,6 @@
 import { useWith, keys, compose, head, intersection } from "ramda";
 import * as types from "../createApi/types";
-import flattenEntry from "./flattenEntry";
+import flattenSingleApi from "./flattenSingleApi";
 import throwException from "./throwException";
 
 /**
@@ -14,14 +14,14 @@ export default (apis: types.Api[]) => {
 
   return (function traverse(apis: types.Api[]) {
     if (apis.length === 1) {
-      const flatApi = flattenEntry(apis[0]);
+      const flatApi = flattenSingleApi(apis[0]);
       const key = getDuplicateKey(temp, flatApi);
 
       if (key) {
         throwException(temp[key]);
       }
 
-      temp = { ...temp, flatApi };
+      temp = { ...temp, ...flatApi };
 
       return flatApi;
     }

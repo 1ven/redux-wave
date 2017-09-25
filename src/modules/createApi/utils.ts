@@ -25,7 +25,7 @@ export function mapSpec(
   );
 }
 
-const pathToSelector = compose(path, filter(x => !!x), split("/"));
+export const pathToSelector = compose(path, filter(x => !!x), split("/"));
 
 export const settingsDefaults = (s: types.Settings = {}, path: string) => {
   return {

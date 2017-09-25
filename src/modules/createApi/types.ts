@@ -60,9 +60,11 @@ export const isApiEntry = (val: any): val is ApiEntry => {
   return (
     isPlainObject(val) &&
     isPlainObject(val.actions) &&
-    is(Function, val.select) &&
-    is(Function, val.type) &&
-    is(Function, val.reducer) &&
-    is(Function, val.fetch)
+    isFunction(val.select) &&
+    isFunction(val.type) &&
+    isFunction(val.reducer) &&
+    isFunction(val.fetch)
   );
 };
+
+const isFunction = val => typeof val === "function";

@@ -1,5 +1,5 @@
 import { Api } from "../createApi/types";
-import flattenApis from "./flattenApi";
+import flattenApis from "./flattenApis";
 
 /**
  * Middleware, which listens request actions and makes api requests
