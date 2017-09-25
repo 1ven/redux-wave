@@ -91,4 +91,4 @@ const api = createApi({
 ```
 That's it. You are just defining your api calls in a declarative way, the rest will be handled by the library under the hood. Next, you can dispatch needed action, select that data from the store and more.
 
-For further information, see [Getting started]()
+For further information, see [Getting started](./getting-started.md)
