@@ -1,7 +1,9 @@
 # Redux API layer
 <img width="100" src="https://raw.githubusercontent.com/1ven/redux-api/master/logo.svg?sanitize=true" />
 
-ICONS LINE
+[![npm version](https://img.shields.io/npm/v/redux-wave.svg)](https://www.npmjs.com/package/redux-wave)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/1ven/redux-wave/master/LICENSE.md)
+[![David](https://img.shields.io/david/1ven/redux-wave.svg)]()
 
 Handling lots of API calls in your Redux application is tough and requires writing a lot of boilerplate code. To reduce the boilerplate, we provide clean and declarative way to define api layer in your application.
 
