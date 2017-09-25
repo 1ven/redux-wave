@@ -8,7 +8,7 @@ Handling lots of API calls in your Redux application is tough and requires writi
 **See [Motivation]()** section to see what problems, we are trying to solve.
 <br/>**Go to [Getting started]()** section to quickly jump in the short example.
 ```
-npm install redux-api-layer
+npm install redux-wave
 ```
 ## Quicklinks
 - [Getting started]()

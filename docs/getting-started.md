@@ -2,15 +2,15 @@
 First thing, you need to do, is to define the spec of your API calls.
 <br/>You could use any level of nesting in the spec object.
 ```javascript
-import { createApi } from 'redux-api-layer';
+import { createApi } from 'redux-wave';
 
 const api = createApi({
   read: {
-    url: '/repos/:owner/:repo',
+    path: '/repos/:owner/:repo',
     method: 'GET'
   },
   edit: {
-    url: '/repos/:owner/:repo',
+    path: '/repos/:owner/:repo',
     method: 'PATCH'
   }
 }, {
@@ -22,7 +22,7 @@ export default api;
 After, api instance is ready, we need to create reducer and middleware using it.
 ```javascript
 import { createStore, applyMiddleware, combineReducers } from 'redux';
-import { createApiMiddleware, createApiReducer } from 'redux-api-layer';
+import { createApiMiddleware, createApiReducer } from 'redux-wave';
 import api from './api';
 
 const store = createStore(
@@ -45,15 +45,17 @@ import api from './api';
 store.dispatch(api.read.actions.request({
   params: {
     owner: '1ven',
-    repo: 'redux-api-layer'
+    repo: 'redux-wave'
   }
 }));
 
 store.subscribe(() => {
   const state = store.getState();
 
-  console.log('repo data', api.read.select('data')(state));
-  console.log('is data fetching?', api.read.select('isFetching')(state));
+  console.group('fetching repo:')
+  console.log('data', api.read.select('data')(state));
+  console.log('is fetching?', api.read.select('isFetching')(state));
+  console.groupEnd();
 });
 ```
 
