@@ -1,6 +1,6 @@
 {
-  "name": "redux-api-helpers",
-  "version": "0.0.2",
+  "name": "redux-wave",
+  "version": "0.0.1",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "author": "1ven",
