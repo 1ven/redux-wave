@@ -58,5 +58,3 @@ store.subscribe(() => {
   console.groupEnd();
 });
 ```
-
-Full example is available at [Codesandbox]()
