@@ -21,7 +21,7 @@ npm install redux-wave
 - [API docs](docs/api.md)
 - [FAQ](docs/faq.md)
 ## Examples
-- [Simple usage]()
+- [Simple usage](https://codesandbox.io/s/github/1ven/redux-wave/tree/master/examples/simple)
 - [Advanced usage]()
 - [Real world app]()
 ## License
