@@ -12,16 +12,21 @@ export default (
   queryConfig: types.QueryConfig,
   settings?: types.Settings
 ) =>
-  utils.mapSpec(spec, (entry: types.SpecEntry, entryPath: string) => {
-    const { path, config, method } = utils.entryDefaults(entry, queryConfig);
+  utils.mapSpec(spec, (_specEntry: types.SpecEntry, entryPath: string) => {
+    const specEntry = utils.entryDefaults(_specEntry, queryConfig);
+    const { path, config, method } = specEntry;
     const { selector, context } = utils.settingsDefaults(settings, entryPath);
     const constants = createConstants(context);
 
-    return {
+    return utils.applyEnhancers(config.enhancers, specEntry, {
       select: utils.createSelect(selector),
       type: utils.createType(constants),
-      fetch: createApiCaller(resolvePath(config.endpoint, path), method),
+      fetch: createApiCaller(
+        resolvePath(config.endpoint, path),
+        method,
+        config.headers
+      ),
       reducer: createReducer(constants),
       actions: createActions(constants)
-    };
+    });
   });

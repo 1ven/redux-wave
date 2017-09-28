@@ -40,8 +40,16 @@ export type SpecEntry = {
   config?: QueryConfig;
 };
 
+export type Enhancer = (entry: ApiEntry) => ApiEntry;
+
+export type HeadersObj = Record<string, string>;
+export type HeadersFn = () => HeadersObj;
+export type Headers = HeadersObj | HeadersFn;
+
 export type QueryConfig = {
   endpoint: string;
+  enhancers?: Enhancer[];
+  headers?: Headers;
 };
 
 export type ApiEntry = {

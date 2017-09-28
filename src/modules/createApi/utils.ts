@@ -1,4 +1,12 @@
-import { mapObjIndexed, compose, filter, split, path, prop } from "ramda";
+import {
+  mergeAll,
+  mapObjIndexed,
+  compose,
+  filter,
+  split,
+  path,
+  prop
+} from "ramda";
 import { resolvePath } from "../../utils";
 import { Constants } from "./createConstants";
 import * as types from "./types";
@@ -44,7 +52,11 @@ export const entryDefaults = (
 ) => {
   return {
     ...entry,
-    config: entry.config || config
+    config: <types.QueryConfig>mergeAll([
+      { enhancers: [] },
+      config,
+      entry.config
+    ])
   };
 };
 

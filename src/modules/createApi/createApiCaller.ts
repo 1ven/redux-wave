@@ -1,5 +1,7 @@
+import { merge, forEachObjIndexed } from "ramda";
 import { RequestAction } from "./createActions";
 import { replaceParams } from "../../utils";
+import * as types from "./types";
 
 export type ResponseMeta = {
   status: number;
@@ -19,7 +21,7 @@ export type Caller = (
  * @param onFailure Failure callback
  * @param payload Request action payload data
  */
-export default (url: string, method: string): Caller => (
+export default (url: string, method: string, headers?): Caller => (
   onSuccess,
   onFailure,
   payload?
@@ -51,9 +53,31 @@ export default (url: string, method: string): Caller => (
   };
 
   xhr.open(method.toUpperCase(), replaceParams(url, requestParams));
-  xhr.setRequestHeader("Accept", "application/json");
-  xhr.setRequestHeader("Content-Type", "application/json");
+  setHeaders(
+    merge(
+      {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      handleHeaders(headers)
+    ),
+    xhr
+  );
   xhr.send(JSON.stringify(requestBody));
+};
+
+const handleHeaders = (headers: types.Headers) => {
+  if (typeof headers !== "function") {
+    return headers;
+  }
+
+  return headers();
+};
+
+const setHeaders = (headers: types.HeadersObj, xhr) => {
+  forEachObjIndexed((v, k) => {
+    xhr.setRequestHeader(k, v);
+  }, headers);
 };
 
 const parseBody = xhr =>
